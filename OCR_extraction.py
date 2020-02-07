@@ -63,6 +63,8 @@ for index, page in enumerate(pages):
 	#form data as dictionary
 	data={'address':address,'taxCode':taxCode,'telPhone':telPhone,'accNum':accNum}
 
+	if not os.path.exists(json_file_path):
+		os.makedirs(json_file_path)
 	#save data as json
 	with open(json_file_path+fileName.split('.')[0]+str(index)+'.json','w') as json_file:
 		json.dump(data,json_file)
