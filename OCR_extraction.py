@@ -9,7 +9,7 @@ import datetime
 
 
 # provide the file path where all your fiels located
-filePath='C:/Users/abinaya.seenivasan@sap.com/OneDrive - SAP SE/SAP/work/IRPA/blog/ocr/python'
+filePath='C:/Users/abinaya.seenivasan@sap.com/OneDrive - SAP SE/SAP/work/IRPA/blog/ocr/python/'
 # filename of the invoice
 fileName='invoice.pdf'
 
