@@ -9,8 +9,7 @@ import datetime
 
 
 # provide the file path where all your fiels located
-filePath='C:/Users/SAPLCSG/Documents/SAP/Intelligent RPA/Desktop Studio/OcrReader/python/'
-
+filePath='C:/Users/abinaya.seenivasan@sap.com/OneDrive - SAP SE/SAP/work/IRPA/blog/ocr/python'
 # filename of the invoice
 fileName='invoice.pdf'
 
@@ -46,22 +45,26 @@ for index, page in enumerate(pages):
 	     api.SetImageFile(filePath+imageFileName)
 	     outText=api.GetUTF8Text()
 	     outTextList=outText.split('\n')
+
+	     print(outTextList[5:9])
 	
-	# retrieve Address from 11th line
-	address=outTextList[10].split('(Addresy)')[1]
+	# retrieve company name from 5th line
+	companyName=outTextList[4].split(':')[1]
 
-	# retrieve tax code from 12th line
-	taxCode=outTextList[11].split(': ')[1]
+	# retrieve address from 7thth line
+	address=outTextList[6].split(': ')[1]
 
-	# retrieve telphone from 14th line
-	telPhone=outTextList[13].split(': ')[1].split(' Fax')[0]
+	# retrieve telphone from 8th line
+	telPhone=outTextList[7].split(': ')[1]
 
-	# retrieve account number from 15th line
-	accNum=outTextList[14].split(': ')[1]
+	# retrieve invoice number from 10th line
+	invoiceNum=outTextList[9].split(': ')[1]
 
+	# retrieve account number from 12th line
+	accNum=outTextList[11].split(': ')[1]
 
 	#form data as dictionary
-	data={'address':address,'taxCode':taxCode,'telPhone':telPhone,'accNum':accNum}
+	data={'companyName':companyName,'address':address,'telPhone':telPhone,'invoiceNum':invoiceNum,'accNum':accNum}
 
 	if not os.path.exists(json_file_path):
 		os.makedirs(json_file_path)
