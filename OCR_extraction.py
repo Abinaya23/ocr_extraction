@@ -9,7 +9,8 @@ import datetime
 
 
 # provide the file path where all your fiels located
-filePath='C:/Users/abinaya.seenivasan@sap.com/OneDrive - SAP SE/SAP/work/IRPA/blog/ocr/python/'
+filePath='C:/Users/abinaya.seenivasan@sap.com/Documents/SAP/Intelligent RPA/Desktop Studio/OcrReader/python/'
+
 # filename of the invoice
 fileName='invoice.pdf'
 
@@ -27,7 +28,7 @@ def set_image_dpi(file_path):
     factor = min(1, float(1024.0 / length_x))
     size = int(factor * length_x), int(factor * width_y)
     im_resized = im.resize(size, Image.ANTIALIAS)
-    im_resized.save(file_path, dpi=(300, 300))
+    im_resized.save(file_path, dpi=(800, 800))
     return file_path
 
 
@@ -37,8 +38,9 @@ pages = convert_from_path(filePath+fileName,500)
 #process each pages in the pdf
 for index, page in enumerate(pages):
 	imageFileName=fileName.split('.')[0]+str(index)+'.jpg'
+	print(imageFileName)
 	pages[index].save(filePath+imageFileName,'JPEG')
-	imageFileName=set_image_dpi(filePath+imageFileName)
+	#imageFileName=set_image_dpi(filePath+imageFileName)
 
 	#call tessdata for every image
 	with PyTessBaseAPI(path=tessdata_path, lang='vie') as api:
@@ -46,22 +48,22 @@ for index, page in enumerate(pages):
 	     outText=api.GetUTF8Text()
 	     outTextList=outText.split('\n')
 
-	     print(outTextList[5:9])
+	     print(outTextList)
 	
 	# retrieve company name from 5th line
-	companyName=outTextList[4].split(':')[1]
+	companyName=outTextList[0].split(':')[1]
 
 	# retrieve address from 7thth line
-	address=outTextList[6].split(': ')[1]
+	address=outTextList[2].split(': ')[1]
 
 	# retrieve telphone from 8th line
-	telPhone=outTextList[7].split(': ')[1]
+	telPhone=outTextList[4].split(': ')[1]
 
 	# retrieve invoice number from 10th line
-	invoiceNum=outTextList[9].split(': ')[1]
+	invoiceNum=outTextList[5].split(': ')[1]
 
 	# retrieve account number from 12th line
-	accNum=outTextList[11].split(': ')[1]
+	accNum=outTextList[7].split(': ')[1]
 
 	#form data as dictionary
 	data={'companyName':companyName,'address':address,'telPhone':telPhone,'invoiceNum':invoiceNum,'accNum':accNum}
